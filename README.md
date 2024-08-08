@@ -1,9 +1,9 @@
 ## Build Language Models on AWS
 
-This repository contains a compilation of examples that showcase how to build, fine-tune, and deploy lanugage models on Amazon SageMaker.
+This repository contains a compilation of examples that showcase how to build, fine-tune, and deploy lanugage models with Amazon SageMaker.
 
 # Usage
-
+To run any notebooks in this folder, you'll need to have an:
 
 - An AWS account
 - Proper IAM User and Role setup with access to Amazon SageMaker and an Amazon S3 bucket

@@ -2,7 +2,7 @@
 
 This repository contains a compilation of examples that showcase how to build, fine-tune, and deploy lanugage models with Amazon SageMaker.
 
-# Usage
+## Usage
 To run any notebooks in this folder, you'll need to have an:
 
 - An AWS account

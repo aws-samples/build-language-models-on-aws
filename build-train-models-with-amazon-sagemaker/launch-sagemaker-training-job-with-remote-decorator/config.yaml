@@ -1,0 +1,10 @@
+SchemaVersion: '1.0'
+SageMaker:
+  PythonSDK:
+    Modules:
+      RemoteFunction:
+        Dependencies: ./requirements.txt
+        ImageUri: '763104351884.dkr.ecr.us-east-1.amazonaws.com/huggingface-pytorch-training:2.1.0-transformers4.36.0-gpu-py310-cu121-ubuntu20.04'
+        InstanceType: ml.g5.12xlarge
+  Model:
+    EnableNetworkIsolation: false

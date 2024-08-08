@@ -1,11 +1,14 @@
-## My Project
+# Deploy Language Models in Amazon SageMaker
 
-TODO: Fill this README out!
+Notebooks in this folder are intended to demonstrate how to deploy language models such as the Mixtral 8x7B large language model in Amazon SageMaker.
 
-Be sure to:
 
-* Change the title in this README
-* Edit your repository description on GitHub
+# Usage
+
+To run any notebooks in this folder, you'll need to have an:
+- An AWS account
+- Proper IAM User and Role setup with access to Amazon SageMaker and an Amazon S3 bucket
+- If you don't have already access to SageMaker you can follow the [Amazon SageMaker Quick Studio Setup](https://docs.aws.amazon.com/sagemaker/latest/dg/onboard-quick-start.html) guide to get started.
 
 ## Security
 

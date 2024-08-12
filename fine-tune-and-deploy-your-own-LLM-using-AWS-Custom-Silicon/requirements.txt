@@ -1,0 +1,9 @@
+regex
+tensorboard
+sentencepiece
+transformers==4.35.0
+datasets==2.14.7
+evaluate==0.4.1
+optimum==1.14.1
+--extra-index-url https://pip.repos.neuron.amazonaws.com
+optimum-neuron==0.0.21

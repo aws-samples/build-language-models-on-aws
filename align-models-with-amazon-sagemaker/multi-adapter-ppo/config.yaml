@@ -1,0 +1,16 @@
+SchemaVersion: '1.0'
+SageMaker:
+  PythonSDK:
+    Modules:
+      RemoteFunction:
+        Dependencies: ./requirements.txt
+        #ImageUri: '763104351884.dkr.ecr.us-east-1.amazonaws.com/huggingface-pytorch-training:2.1.0-transformers4.36.0-gpu-py310-cu121-ubuntu20.04'
+        ImageUri: '763104351884.dkr.ecr.eu-central-1.amazonaws.com/huggingface-pytorch-training:2.1.0-transformers4.36.0-gpu-py310-cu121-ubuntu20.04'
+        InstanceType: ml.g5.12xlarge
+        PreExecutionCommands:
+          - 'export NCCL_P2P_DISABLE=1'
+          #- 'export FSDP_CPU_RAM_EFFICIENT_LOADING=1'
+        #RoleArn: RoleArn required if you are running the notebooks from a local IDE
+  Model:
+    #ExecutionRoleArn: RoleArn required if you are running the notebooks from a local IDE
+    EnableNetworkIsolation: false

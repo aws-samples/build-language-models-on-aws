@@ -7,7 +7,7 @@ from arguments import parse_args
 import train_lib
 
 def main():
-    """Main function to train GPT."""
+    """Main function to train the model."""
     args, _ = parse_args()
     train_lib.main(args)
 

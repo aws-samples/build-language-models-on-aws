@@ -10,7 +10,7 @@ from contextlib import nullcontext
 import numpy as np
 import torch
 import torch.distributed as dist
-import torch.sagemaker as tsm
+import torch.sagemaker as tsm #enable SMP
 import torch.utils.data
 
 import transformer_engine
@@ -49,7 +49,7 @@ from torch.sagemaker import transform
 from torch.sagemaker.delayed_param import DelayedParamIniter
 from torch.sagemaker.grad_norm import clip_grad_norm_
 from torch.sagemaker.utils import utils as tsm_utils  # pylint: disable=no-name-in-module
-from train_utils import (
+from train_utils import ( #smp
     apply_activation_checkpoint,
     compute_num_params,
     compute_tflops,
@@ -423,7 +423,7 @@ def main(args):
         if report is not None and global_rank == 0:
             write_nccl_test_stats(writers, report)
 
-    tsm.init()
+    tsm.init() #smp initialisation
 
     if args.use_smp_implementation < 1 < tsm.state.tensor_parallel_degree:
         args.use_smp_implementation = 1

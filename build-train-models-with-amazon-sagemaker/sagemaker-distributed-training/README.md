@@ -1,15 +1,20 @@
-## Sagemaker Model Parallelism
+# Deploy Language Models in Amazon SageMaker
 
-This directory contains example scripts to train or fine-tune large scale models,
-with the Sagemaker distributed model parallelism library.
-When using one of the ipynb notebooks within the folders of this directory please 
-make sure to use the `./shared-scripts/` directory as the source directory when submitting a job.
+Notebooks in this folder are intended to demonstrate how to run distributed training in Amazon SageMaker
 
-For example, if one wanted to submit a llama finetune job on Sagemaker using the `/llama_v2/smp-finetuning-llama-fsdp-tp.ipynb`
-notebook, they would have to copy that notebook within the `./shared-scripts/` directory to make sure it can access all the accompanied files.
 
-After cloning this repository run the following command to setup a copy of the notebook associated with your desired model into the `./shared-scripts/` directory.
+# Usage
 
-- `cp [RELATIVE PATH TO ipynb] shared-scripts/`
+To run any notebooks in this folder, you'll need to have an:
+- An AWS account
+- Proper IAM User and Role setup with access to Amazon SageMaker and an Amazon S3 bucket
+- If you don't have already access to SageMaker you can follow the [Amazon SageMaker Quick Studio Setup](https://docs.aws.amazon.com/sagemaker/latest/dg/onboard-quick-start.html) guide to get started.
 
-Finally, upload the `./shared-scripts/` directory to a Sagemaker notebook to submit your training/finetuning job. 
+## Security
+
+See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+
+## License
+
+This code is licensed under the Apache 2.0 License. See the LICENSE file.
+

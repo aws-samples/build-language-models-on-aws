@@ -1,11 +1,6 @@
-## My Project
+## Preference alignment in Amazon SageMaker
 
-TODO: Fill this README out!
-
-Be sure to:
-
-* Change the title in this README
-* Edit your repository description on GitHub
+Notebooks in this folder are intended to demonstrate preference alignment using Amazon SageMaker.
 
 ## Security
 

@@ -15,5 +15,7 @@ See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more inform
 
 ## License
 
-This library is licensed under the MIT-0 License. See the LICENSE file.
+The code under **build-train-models-with-amazon-sagemaker/sagemaker-distributed-training** is licensed under the Apache 2.0 License. See the LICENSE file.
 
+
+The rest of the code in this repository is licenced under the the MIT-0 License. See the LICENSE file.

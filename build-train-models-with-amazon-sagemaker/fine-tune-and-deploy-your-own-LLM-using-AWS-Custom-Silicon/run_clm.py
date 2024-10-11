@@ -211,6 +211,17 @@ class DataTrainingArguments:
         default=True, metadata={"help": "Whether to keep line breaks when using TXT files or not."}
     )
 
+    
+    def validate_file(input_file):
+        extension = input_file.split(".")[-1]
+        try:
+            if extension not in ["csv", "json", "txt"]:
+                raise InvalidFileExtensionError(f"Extension '{extension}' is not supported. '{input_file}' should be a csv, a json, or a txt file.")
+            print('validation successful')
+            # Process the file here
+        except InvalidFileExtensionError as e:
+            print(f"Error: {e}")
+
     def __post_init__(self):
         if self.streaming:
             require_version("datasets>=2.0.0", "The streaming feature requires `datasets>=2.0.0`")
@@ -219,11 +230,9 @@ class DataTrainingArguments:
             raise ValueError("Need either a dataset name or a training/validation file.")
         else:
             if self.train_file is not None:
-                extension = self.train_file.split(".")[-1]
-                assert extension in ["csv", "json", "txt"], "`train_file` should be a csv, a json or a txt file."
+                validate_file(self.train_file)
             if self.validation_file is not None:
-                extension = self.validation_file.split(".")[-1]
-                assert extension in ["csv", "json", "txt"], "`validation_file` should be a csv, a json or a txt file."
+                validate_file(self.validation_file)
 
 
 def main():

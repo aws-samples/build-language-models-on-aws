@@ -1,6 +1,7 @@
 # IDE
 .idea/
 .vscode/
+bandit-env
 
 # Environments
 .env

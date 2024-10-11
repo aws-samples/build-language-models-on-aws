@@ -407,12 +407,18 @@ def _load_sharded(model, optimizer, scheduler, checkpoint_dir, checkpointing_pg_
             val_state_dict = {"val_resume_from_sequence_number": 0}
             _load_from_disk(val_state_dict)
             state_dict.update(val_state_dict)
-        except:
-            pass
-
+        except KeyError:
+    # Handle the case when the validation state dictionary is not found
+            if dist.get_rank() == 0:
+                logger.warning("Validation state dictionary not found")
+        except Exception as e:
+    # Handle any other unexpected exceptions
+            if dist.get_rank() == 0:
+                logger.error(f"Error loading validation state dictionary: {e}")
+        
         if dist.get_rank() == 0:
             logger.info("Loaded model state from disk")
-
+            
         model.load_state_dict(state_dict["model"])
         scheduler.load_state_dict(state_dict["scheduler"])
         optim_state = load_sharded_optimizer_state_dict(

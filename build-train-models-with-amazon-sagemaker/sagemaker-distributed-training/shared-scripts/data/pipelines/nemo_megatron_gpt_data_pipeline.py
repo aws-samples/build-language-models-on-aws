@@ -80,7 +80,8 @@ class MegatronGPTDataPipeline(DataPipeline):
         from omegaconf import OmegaConf
 
         file_list = make_file_list(args.data_dir, args.data_file_regex)
-        assert len(file_list) > 0, "Please check your regex"
+        if (len(file_list) <= 0):
+            raise ValueError("Please check your regex")
         model_cfg_dict = {
             "data": {
                 # "data_prefix": {

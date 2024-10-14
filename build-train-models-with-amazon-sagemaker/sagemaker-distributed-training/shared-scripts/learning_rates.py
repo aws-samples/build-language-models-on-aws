@@ -48,14 +48,13 @@ class AnnealingLR:  # pylint: disable=too-many-instance-attributes
         self.plateau_iter = plateau_iter
         self.num_iters = last_iter
         self.end_iter = total_iters
-        assert self.end_iter > 0
+        if (self.end_iter <= 0): 
+            raise ValueError("end_iter value must be bigger than 0")
         self.decay_style = decay_style
         self.override_lr_scheduler = override_lr_scheduler
         self.use_checkpoint_lr_scheduler = use_checkpoint_lr_scheduler
-        if self.override_lr_scheduler:
-            assert not self.use_checkpoint_lr_scheduler, (
-                "both override and " "use-checkpoint are set."
-            )
+        if self.override_lr_scheduler and self.use_checkpoint_lr_scheduler:
+            raise AssertionError("both override and use-checkpoint are set.")
         # Set the learning rate
         self.step(self.num_iters)
         self.rank = dist.get_rank()
@@ -120,9 +119,8 @@ class AnnealingLR:  # pylint: disable=too-many-instance-attributes
             return cls_value
 
         if not self.use_checkpoint_lr_scheduler:
-            assert (
-                cls_value == sd_value
-            ), f"AnnealingLR: class input value and checkpoint values for {name} do not match"
+            if cls_value != sd_value:
+                raise ValueError(f"AnnealingLR: class input value and checkpoint values for {name} do not match")
         if self.rank == 0:
             logger.info(f" > using checkpoint value {sd_value} for {name}")
         return sd_value

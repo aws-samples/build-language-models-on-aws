@@ -298,8 +298,6 @@ def get_args():
     args.make_vocab_size_divisible_by = 128
     args.tensor_model_parallel_size = 1
     args.vocab_extra_ids = 0
-    # TODO: There are dependencies b/w libraries and model files / tokenizer type strings to check.
-    assert args.tokenizer_type is not None or args.tokenizer_model is not None
     return args
 
 
@@ -308,7 +306,8 @@ def main():
     startup_start = time.time()
     if args.preproc_folder:
         print("Searching folder for .json or .json.gz files...")
-        assert os.path.exists(args.input), f"Folder does not exist: {args.input}"
+        if not os.path.exists(args.input):
+            raise FileNotFoundError(f"Folder does not exist: {args.input}")
         json_files = (str(f) for f in pathlib.Path(args.input).glob(args.files_filter))
         json_files = [f for f in json_files if f.endswith(".json") or f.endswith(".json.gz")]
         if len(json_files) == 0:
@@ -316,16 +315,18 @@ def main():
         else:
             print(f"Found {len(json_files)} .json or .json.gz files.")
     else:
-        assert os.path.exists(args.input), f"File does not exist: {args.input}"
+        if not os.path.exists(args.input):
+            raise FileNotFoundError(f"Folder does not exist: {args.input}")
         json_files = [args.input]
 
     if nltk_available and args.split_sentences:
         nltk.download("punkt", quiet=True)
 
     encoder = Encoder(args)
-
+    
     if args.dataset_impl == "retmmap":
-        assert args.need_pad_id, "retmmap need --need_pad_id flag"
+        if not args.need_pad_id:
+            raise ValueError("retmmap need --need_pad_id flag")
     tokenizer = get_tokenizer(args)
 
     level = "document"

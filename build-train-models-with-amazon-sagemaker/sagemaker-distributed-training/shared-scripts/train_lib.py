@@ -122,13 +122,11 @@ def train_step(  # pylint: disable=too-many-arguments,too-many-branches,too-many
 
     if batch_idx == 0:
         # checking only on batch 0 to reduce checks during runtime
-        assert (
-            input_ids.shape[1] == args.max_context_width
-        ), f"Input data passed {input_ids.shape} does not respect max_context_width set. Note that this is not strictly necessary, but added to prevent mistakes. If you intend to do this, please remove this check."
-        assert (
-            input_ids.shape[1] <= args.max_context_width
-        ), "Input data passed is larger than max_context_width for model. You need to change max_context_width so model can expect larger sequences"
-
+        if (input_ids.shape[1] != args.max_context_width):
+            raise ValueError(f"Input data passed {input_ids.shape} does not respect max_context_width set. Note that this is not strictly necessary, but added to prevent mistakes. If you intend to do this, please remove this check.")
+        if (input_ids.shape[1] > args.max_context_width):
+            raise ValueError(f"Input data passed is larger than max_context_width for model. You need to change max_context_width so model can expect larger sequences")
+    
     optimizer.zero_grad(set_to_none=True)
 
     torch.cuda.synchronize()
@@ -541,10 +539,9 @@ def main(args):
             else:
                 delayed_param_initer = DelayedParamIniter(model)
 
-    assert set(x.dtype for x in model.parameters()) == set(
-        [torch.float32]
-    ), "Model parameters should be in fp32 for FSDP mixed precision"
-
+    if (set(x.dtype for x in model.parameters()) != set(
+        [torch.float32])):
+            raise ValueError("Model parameters should be in fp32 for FSDP mixed precision")
     if global_rank == 0:
         logger.info(
             "Created model with total parameters: %d (%.2f B)", num_params, num_params * 1e-9

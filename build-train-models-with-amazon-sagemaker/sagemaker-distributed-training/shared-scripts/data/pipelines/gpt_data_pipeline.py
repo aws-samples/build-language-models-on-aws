@@ -104,8 +104,12 @@ class GPTDataPipeline(DataPipeline):
                 file_extension = ".json.gz"
             else:
                 file_extension = ".json"
+                
             if is_s3_source(training_dir):
-                assert S3Dataset, "awsio package needs to be installed"
+                try:
+                    from awsio import S3Dataset
+                except ImportError:
+                    raise AssertionError("awsio package needs to be installed")
                 train_paths = S3Dataset(training_dir)
             else:
                 train_paths = sorted(
@@ -114,7 +118,8 @@ class GPTDataPipeline(DataPipeline):
                         for p in os.listdir(training_dir)
                         if p.endswith(file_extension)
                     ]
-                )
+                )                
+            
         else:
             raise NotImplementedError
 
@@ -139,7 +144,10 @@ class GPTDataPipeline(DataPipeline):
             else:
                 file_extension = ".json"
             if is_s3_source(test_dir):
-                assert S3Dataset, "awsio package needs to be installed"
+                try:
+                    from awsio import S3Dataset
+                except ImportError:
+                    raise AssertionError("awsio package needs to be installed")
                 val_paths = S3Dataset(test_dir)
             else:
                 val_paths = sorted(

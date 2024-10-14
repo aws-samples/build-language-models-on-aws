@@ -149,7 +149,8 @@ def tokenize_dataset(
         desc="Running tokenizer on dataset",
     )
 
-    assert tokenizer.model_max_length >= sequence_length
+    if (tokenizer.model_max_length < sequence_length):
+        raise ValueError("model_max_length cannot be smaller than sequence_length")
 
     lm_datasets = tokenized_datasets.map(
         functools.partial(group_texts, sequence_length),

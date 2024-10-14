@@ -1,11 +1,6 @@
-## My Project
+## Amazon SageMaker HyperPod
 
-TODO: Fill this README out!
-
-Be sure to:
-
-* Change the title in this README
-* Edit your repository description on GitHub
+This folder is intended to host sample code for SageMaker HyperPod.
 
 ## Security
 
@@ -13,5 +8,4 @@ See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more inform
 
 ## License
 
-This library is licensed under the MIT-0 License. See the LICENSE file.
-
+This code is licensed under the MIT-0 License. See the LICENSE file.

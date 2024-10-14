@@ -1,0 +1,12 @@
+transformers==4.44.0
+peft==0.12.0
+accelerate==0.33.0
+bitsandbytes==0.43.3
+evaluate==0.4.1
+safetensors>=0.4.3
+sagemaker==2.231.0
+tokenizers>=0.19.1
+py7zr
+s3fs
+trl==0.9.6
+
